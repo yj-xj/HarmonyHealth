@@ -2,12 +2,26 @@ import { CommonConstants } from '../common/constants/CommonConstants'
 import router from '@ohos.router'
 import HomeNetworkService from '../services/HomeNetworkService'
 
+// 用户信息接口
+interface UserInfo {
+  username: string;
+  email: string;
+  avatar?: string;
+}
+
+// 运动历史记录接口
+interface ExerciseHistory {
+  date: string;
+  exerciseType: string;
+  duration: number;
+}
+
 @Entry
 @Component
 struct ProfilePage {
   @State message: string = '个人中心'
-  @State userInfo: any = null
-  @State exerciseHistory: any[] = []
+  @State userInfo: UserInfo | null = null
+  @State exerciseHistory: ExerciseHistory[] = []
   @State isLoading: boolean = false
 
   build() {
@@ -112,12 +126,14 @@ struct ProfilePage {
       HomeNetworkService.getUserInfo(),
       HomeNetworkService.getExerciseHistory()
     ])
-      .then(([userInfo, exerciseHistory]) => {
+      .then((results) => {
+        const userInfo = results[0];
+        const exerciseHistory = results[1];
         this.userInfo = userInfo.data
         this.exerciseHistory = exerciseHistory.data
         this.isLoading = false
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         this.isLoading = false
       })
   }

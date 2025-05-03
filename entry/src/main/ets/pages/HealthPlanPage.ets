@@ -2,12 +2,18 @@ import { CommonConstants } from '../common/constants/CommonConstants'
 import router from '@ohos.router'
 import HomeNetworkService from '../services/HomeNetworkService'
 
+// 健康计划数据接口
+interface HealthPlanData {
+  diet: string;
+  exercise: string;
+}
+
 @Entry
 @Component
 struct HealthPlanPage {
   @State message: string = '健康计划'
   @State selectedDay: number = 1
-  @State planData: any = null
+  @State planData: HealthPlanData | null = null
   @State isLoading: boolean = false
 
   private weekDays = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
@@ -98,7 +104,7 @@ struct HealthPlanPage {
         this.planData = response.data
         this.isLoading = false
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         this.planData = null
         this.isLoading = false
       })

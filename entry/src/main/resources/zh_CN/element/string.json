@@ -15,6 +15,14 @@
     {
       "name": "internet_permission_reason",
       "value": "需要访问网络以实现登录功能"
+    },
+    {
+      "name": "form_ability_label",
+      "value": "健康卡片"
+    },
+    {
+      "name": "form_ability_desc",
+      "value": "提供健康数据卡片、控制卡片和情景建议卡片"
     }
   ]
 } 

@@ -56,7 +56,20 @@
             "name": "ohos.extension.backup",
             "resource": "$profile:backup_config"
           }
-        ],
+        ]
+      },
+      {
+        "name": "FormAbility",
+        "srcEntry": "./ets/formability/FormExtensionAbility.ets",
+        "label": "$string:form_ability_label",
+        "description": "$string:form_ability_desc",
+        "type": "form",
+        "metadata": [
+          {
+            "name": "ohos.extension.form",
+            "resource": "$profile:form_config"
+          }
+        ]
       }
     ]
   }

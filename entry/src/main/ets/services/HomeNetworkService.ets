@@ -27,6 +27,17 @@ interface BaseResponse<T> {
   data: T
 }
 
+// HTTP错误接口
+interface HttpError extends Error {
+  code: number;
+  message: string;
+}
+
+// 健康计划响应
+interface HealthPlanResponse {
+  plan: string;
+}
+
 export class HomeNetworkService {
   private static instance: HomeNetworkService
   private baseUrl: string = 'http://localhost:8000'
@@ -44,7 +55,7 @@ export class HomeNetworkService {
   }
 
   // 生成健康计划
-  async generateHealthPlan(): Promise<BaseResponse<{ plan: string }>> {
+  async generateHealthPlan(): Promise<BaseResponse<HealthPlanResponse>> {
     console.info('[HomeNetworkService] 开始生成健康计划')
     let httpRequest = http.createHttp()
     try {
@@ -57,12 +68,14 @@ export class HomeNetworkService {
           }
         }
       )
-      const result = JSON.parse(response.result as string)
+      const result = JSON.parse(response.result as string) as BaseResponse<HealthPlanResponse>
       console.info(`[HomeNetworkService] 生成计划响应状态码: ${result.code}`)
       return result
-    } catch (error) {
+    } catch (error: Error) {
       console.error(`[HomeNetworkService] 生成计划请求发生错误: ${error}`)
-      throw error
+      const httpError: HttpError = new Error(error.message) as HttpError
+      httpError.code = -1
+      throw httpError
     } finally {
       httpRequest.destroy()
     }
@@ -82,12 +95,14 @@ export class HomeNetworkService {
           }
         }
       )
-      const result = JSON.parse(response.result as string)
+      const result = JSON.parse(response.result as string) as BaseResponse<HealthPlanData>
       console.info(`[HomeNetworkService] 获取计划响应状态码: ${result.code}`)
       return result
-    } catch (error) {
+    } catch (error: Error) {
       console.error(`[HomeNetworkService] 获取计划请求发生错误: ${error}`)
-      throw error
+      const httpError: HttpError = new Error(error.message) as HttpError
+      httpError.code = -1
+      throw httpError
     } finally {
       httpRequest.destroy()
     }
@@ -107,12 +122,14 @@ export class HomeNetworkService {
           }
         }
       )
-      const result = JSON.parse(response.result as string)
+      const result = JSON.parse(response.result as string) as BaseResponse<UserInfo>
       console.info(`[HomeNetworkService] 获取用户信息响应状态码: ${result.code}`)
       return result
-    } catch (error) {
+    } catch (error: Error) {
       console.error(`[HomeNetworkService] 获取用户信息请求发生错误: ${error}`)
-      throw error
+      const httpError: HttpError = new Error(error.message) as HttpError
+      httpError.code = -1
+      throw httpError
     } finally {
       httpRequest.destroy()
     }
@@ -132,12 +149,14 @@ export class HomeNetworkService {
           }
         }
       )
-      const result = JSON.parse(response.result as string)
+      const result = JSON.parse(response.result as string) as BaseResponse<ExerciseHistory[]>
       console.info(`[HomeNetworkService] 获取运动历史响应状态码: ${result.code}`)
       return result
-    } catch (error) {
+    } catch (error: Error) {
       console.error(`[HomeNetworkService] 获取运动历史请求发生错误: ${error}`)
-      throw error
+      const httpError: HttpError = new Error(error.message) as HttpError
+      httpError.code = -1
+      throw httpError
     } finally {
       httpRequest.destroy()
     }

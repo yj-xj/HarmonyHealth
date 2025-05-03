@@ -1,12 +1,16 @@
 {
   "src": [
-    "pages/WelcomeIndex",
     "pages/Index",
-    "pages/First",
     "pages/Second",
     "pages/Third",
     "pages/Forth",
+    "pages/First",
     "pages/LoginPage",
-    "pages/RegisterPage"
+    "pages/RegisterPage",
+    "pages/WelcomeIndex",
+    "pages/HealthPlanPage",
+    "pages/ProfilePage",
+    "pages/AssistantPage",
+    "pages/CardsManagePage"
   ]
 }

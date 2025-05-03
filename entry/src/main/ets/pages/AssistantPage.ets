@@ -74,7 +74,7 @@ struct AssistantPage {
         this.planContent = response.data.plan
         this.isLoading = false
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         this.planContent = '生成计划失败，请稍后重试'
         this.isLoading = false
       })
